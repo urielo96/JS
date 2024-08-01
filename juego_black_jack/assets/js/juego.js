@@ -83,12 +83,19 @@ boton_pedir_carta.addEventListener('click', () => {
     console.log(puntos_jugador); 
     
     puntos_HTML[0].innerText = puntos_jugador;
+    const imagen = document.createElement('img');   
+
+    imagen.src = `assets/cartas/${carta}.png`;
+
+    jugador-carta.appendChild(imagen);
+
 }
 );
 
 
-imagen = document.createElement('img');
-imagen.src = `assets/cartas/${carta}.png`;
+
+
+
 
 
 
