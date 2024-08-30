@@ -13,8 +13,16 @@ let tipos = ['C', 'D', 'H', 'S'];
 let especiales = ['A', 'J', 'Q', 'K'];
 let puntos_jugador = 0;
 let puntos_computadora = 0;
-
+const nuevo_juego = document.querySelector('#btnNuevoJuego');
+const div_jugador = document.querySelector('#jugador_cartas');
 const puntos_HTML = document.querySelectorAll('small');
+const boton_pedir_carta= document.querySelector('#btnPedirCarta');
+const pun = document.querySelector('#puntos_jugador');
+let ejecutada = false
+
+    
+    
+
 
 puntos_HTML.forEach(punto => {
     console.log(punto);
@@ -40,11 +48,23 @@ const crearDeck = () => {
     
     deck =  _.shuffle(deck);
     
+    ejecutada = true
+    
+    
 
 }
 
+
+
+if (ejecutada === true){
+    while (deck.length === 0)
+        
+}
+
+
 const pedirCarta = () => {
     if (deck.length === 0) {
+        
         return 'No hay cartas en el deck'
     }
     carta_seleccionada = deck.pop()
@@ -66,15 +86,22 @@ function obtener_valor_carta(carta) {
     return valores[valor];
 }
 
-const nuevo_juego = document.querySelector('#btnNuevoJuego');
+/// Este sera el turno de la computadora cuando el usuario pique el botón de detener capuere el numero o que si el suario pierde tambein se actia
+///const turno_computadora (){
+
+///}
+
+
+
 
 
 nuevo_juego.addEventListener('click', () => {
     crearDeck();
     console.log(deck);
 })
-const boton_pedir_carta= document.querySelector('#btnPedirCarta');
-const pun = document.querySelector('#puntos_jugador');
+
+
+
 
 boton_pedir_carta.addEventListener('click', () => {
     const carta = pedirCarta();
@@ -86,11 +113,19 @@ boton_pedir_carta.addEventListener('click', () => {
     const imagen = document.createElement('img');   
 
     imagen.src = `assets/cartas/${carta}.png`;
+    imagen.classList.add('carta');
+    div_jugador.append(imagen);
 
-    jugador-carta.appendChild(imagen);
-
+    if (puntos_jugador > 21) {
+        console.warn('Lo siento has perdio')
+        boton_pedir_carta.disabled = true
+    } else if ( puntos_jugador === 21){
+        console.warn('21 Has ganado ¡¡¡¡¡')
+        boton_pedir_carta.disabled = true
+    }
 }
 );
+
 
 
 
