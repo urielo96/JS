@@ -15,10 +15,12 @@ let puntos_jugador = 0;
 let puntos_computadora = 0;
 const nuevo_juego = document.querySelector('#btnNuevoJuego');
 const div_jugador = document.querySelector('#jugador_cartas');
+const div_computadora = document.querySelector('#computadora_cartas')
 const puntos_HTML = document.querySelectorAll('small');
 const boton_pedir_carta= document.querySelector('#btnPedirCarta');
 const pun = document.querySelector('#puntos_jugador');
-let ejecutada = false
+let detener = document.querySelector('#btnDetener');
+
 
     
     
@@ -48,18 +50,22 @@ const crearDeck = () => {
     
     deck =  _.shuffle(deck);
     
-    ejecutada = true
+ 
     
     
 
 }
 
 
+/// La condiciones para que la computadora juegue es que si el jugador tiene mas de 21 puntos la computadora gana
+/// si el jugador tiene 21 puntos el jugador gana
+/// si el jugador tiene menos de 21 puntos y la computadora tiene mas puntos que el jugador la computadora gana
+/// si el jugador tiene menos de 21 puntos y la computadora tiene menos puntos que el jugador el jugador gana
 
-if (ejecutada === true){
-    while (deck.length === 0)
-        
-}
+
+
+
+
 
 
 const pedirCarta = () => {
@@ -91,6 +97,25 @@ function obtener_valor_carta(carta) {
 
 ///}
 
+const turno_computadora = (puntos_minimos) => {
+
+    // do {
+        const carta = pedirCarta();
+        puntos_computadora = puntos_computadora + obtener_valor_carta(carta);
+        puntos_HTML[1].innerText = puntos_computadora;
+        const imagen = document.createElement('img');   
+        imagen.src = `assets/cartas/${carta}.png`;
+        imagen.classList.add('carta');
+        div_computadora.append(imagen);
+        
+    
+    // } 
+    // while (puntos_computadora < puntos_minimos && puntos_computadora < 21) {
+        
+
+    // }
+
+}
 
 
 
@@ -104,6 +129,7 @@ nuevo_juego.addEventListener('click', () => {
 
 
 boton_pedir_carta.addEventListener('click', () => {
+    
     const carta = pedirCarta();
     const valor = obtener_valor_carta(carta);
     puntos_jugador = puntos_jugador + valor;
@@ -128,6 +154,9 @@ boton_pedir_carta.addEventListener('click', () => {
 
 
 
+
+//TODO (borrar)
+turno_computadora(12)
 
 
 
