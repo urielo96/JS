@@ -19,16 +19,8 @@ const div_computadora = document.querySelector('#computadora_cartas')
 const puntos_HTML = document.querySelectorAll('small');
 const boton_pedir_carta= document.querySelector('#btnPedirCarta');
 const pun = document.querySelector('#puntos_jugador');
-let detener = document.querySelector('#btnDetener');
+const boton_detener = document.querySelector('#btnDetener');
 
-
-    
-    
-
-
-puntos_HTML.forEach(punto => {
-    console.log(punto);
-});
 
 const crearDeck = () => {
     
@@ -56,39 +48,29 @@ const crearDeck = () => {
 
 }
 
-
-/// La condiciones para que la computadora juegue es que si el jugador tiene mas de 21 puntos la computadora gana
-/// si el jugador tiene 21 puntos el jugador gana
-/// si el jugador tiene menos de 21 puntos y la computadora tiene mas puntos que el jugador la computadora gana
-/// si el jugador tiene menos de 21 puntos y la computadora tiene menos puntos que el jugador el jugador gana
-
-
-
-
-
-
+crearDeck();
 
 const pedirCarta = () => {
     if (deck.length === 0) {
-        
         return 'No hay cartas en el deck'
     }
     carta_seleccionada = deck.pop()
-    
     return carta_seleccionada
-
 }
+        
+    
+
     
 
 function obtener_valor_carta(carta) {
-    console.log('Este es el valor de la ' ,carta);
+   
     const valores = {
         'A': 11, '2': 2, '3': 3, '4': 4, '5': 5,
         '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
         'J': 10, 'Q': 10, 'K': 10
     };
     const valor = carta.substring(0, carta.length-1);
-    console.log("Estes es el" , valor);
+    
     return valores[valor];
 }
 
@@ -99,7 +81,7 @@ function obtener_valor_carta(carta) {
 
 const turno_computadora = (puntos_minimos) => {
 
-    // do {
+    do {
         const carta = pedirCarta();
         puntos_computadora = puntos_computadora + obtener_valor_carta(carta);
         puntos_HTML[1].innerText = puntos_computadora;
@@ -108,23 +90,18 @@ const turno_computadora = (puntos_minimos) => {
         imagen.classList.add('carta');
         div_computadora.append(imagen);
         
-    
-    // } 
-    // while (puntos_computadora < puntos_minimos && puntos_computadora < 21) {
+        if (puntos_minimos > 21)
+            break
+
+        }
+    while ((puntos_minimos > puntos_computadora) && (puntos_computadora <= 21)) 
         
+    }
 
-    // }
-
-}
-
-
-
-
-nuevo_juego.addEventListener('click', () => {
-    crearDeck();
-    console.log(deck);
-})
-
+        
+            
+    
+        
 
 
 
@@ -145,19 +122,35 @@ boton_pedir_carta.addEventListener('click', () => {
     if (puntos_jugador > 21) {
         console.warn('Lo siento has perdio')
         boton_pedir_carta.disabled = true
-    } else if ( puntos_jugador === 21){
+        turno_computadora( puntos_jugador)
+    }
+     else if ( puntos_jugador === 21){
         console.warn('21 Has ganado ¡¡¡¡¡')
         boton_pedir_carta.disabled = true
+        turno_computadora( puntos_jugador)
     }
+
 }
 );
 
+boton_detener.addEventListener('click', ()=>{
+
+    nuevo_juego.disabled = true
+    boton_pedir_carta.disabled = true
+
+    turno_computadora(puntos_jugador)
+
+    if (puntos_jugador < puntos_computadora) {
+        alert(' Has perdido ')
+    }
+    
 
 
 
-//TODO (borrar)
-turno_computadora(12)
 
+
+}
+);
 
 
 
