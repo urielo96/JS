@@ -42,11 +42,8 @@ const crearDeck = () => {
     
     deck =  _.shuffle(deck);
     
- 
     
-    
-
-}
+    }
 
 crearDeck();
 
@@ -74,10 +71,37 @@ function obtener_valor_carta(carta) {
     return valores[valor];
 }
 
-/// Este sera el turno de la computadora cuando el usuario pique el botón de detener capuere el numero o que si el suario pierde tambein se actia
-///const turno_computadora (){
 
-///}
+/// La computadora gana cuando logra tener mas puntos que el usario si es que el usuario detiene el juego
+// o pierde si es que el usario obtiene 21 
+
+
+const turno_computadora = (puntos_minimos)  => {
+    
+    const carta = pedirCarta();
+    const valor = obtener_valor_carta(carta);
+    
+    puntos_computadora = puntos_computadora + valor;
+    
+    puntos_HTML[1].innerText = puntos_computadora;
+    
+    const imagen = document.createElement('img');   
+    
+
+    imagen.src = `assets/cartas/${carta}.png`;
+    imagen.classList.add('carta');
+    div_computadora.append(imagen);
+
+    if (puntos_jugador > 21) {
+        console.warn('Lo siento has perdio')
+        boton_pedir_carta.disabled = true
+    } else if ( puntos_jugador === 21){
+        console.warn('21 Has ganado ¡¡¡¡¡')
+        boton_pedir_carta.disabled = true
+    }
+
+
+}
 
 const turno_computadora = (puntos_minimos) => {
 
